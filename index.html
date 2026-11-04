@@ -1085,6 +1085,7 @@ var NARA_PH = {"nara-park": [{"src": "https://thumb.wikimedia.org/wikipedia/comm
   var NAMES = [];
   VERS.forEach(function (v) { (v.trip.hotels || []).concat(v.trip.hotelOptions || []).forEach(function (h) { (h.options || [h]).forEach(function (o) { if (o && o.name) NAMES.push([o.name, o.id || h.id || "", o.cityId || h.cityId]); }); }); });
   var CITYREP = { tokyo: "your hotel (Ginza area)", osaka: "your hotel (Namba area)", kyoto: "your hotel (Kyoto Station area)", kawaguchiko: "your lakeside ryokan" };
+  NAMES = NAMES.filter(function (n) { return !/^(the )?hotel$/i.test(n[0]); });   /* generic "the hotel" is not a hotel name: leave it (was turning Osaka/Kyoto rest rows into "Ginza area") */
   NAMES.sort(function (a, b) { return b[0].length - a[0].length; });
   function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
   function scrub(s) {
@@ -2770,6 +2771,138 @@ html.mustonly .m3tl .m3row.opt{display:none}
 .m3dtb.hero{margin:4px 0 2px;font-size:12px}
 .m3rw .m3dtb{display:table;margin-top:3px}
 </style>
+<style id="theme-switcher">.thsw{display:inline-flex;align-items:center;gap:6px;font:600 13px/1 system-ui;color:inherit;margin-left:auto}.thsw select{min-height:44px;padding:0 10px;border:1px solid #d9d4ca;border-radius:10px;background:#fff;color:#1c2430;font:600 14px/1 system-ui;cursor:pointer}.m1hx .thsw{margin:6px 0 0}.m1hx .thsw select{min-height:40px}@media(max-width:699px){.thsw>span{display:none}#choose .m1h{position:relative}.m1hx .thsw{position:absolute;top:10px;right:0;margin:0}}</style>
+<style id="theme-line">/* ===== THEME: line — every rule is scoped to html.th-line, so removing/disabling this theme cannot affect Classic ===== */
+html.th-line{--lb:#F7F7F4;--ls:#FFF;--lsub:#F0F0EC;--lsel:#EEF3FD;--ltip:#F3F5FA;--lbd:#E4E4E0;--ldv:#EFEFEB;--link:#15161C;--l2:#565867;--lbr:#D93A57;--lft:#FDEEF0;--lfl:#B02844}
+html.th-line body,html.th-line #m3lay,html.th-line #choose{font-family:"M PLUS 1p",system-ui,-apple-system,"Segoe UI",sans-serif!important;color:var(--link)}
+html.th-line body{background:var(--lb)!important}
+html.th-line #m3h,html.th-line .hdr{background:var(--ls)!important;border-bottom:1px solid var(--lbd)!important;box-shadow:none!important}
+html.th-line *{background-image:none}
+html.th-line .lm-sc{display:inline-grid;place-items:center;flex:0 0 22px;width:22px;height:22px;border-radius:50%;border:3px solid var(--c);background:#fff;color:var(--link);font:800 11px/1 "M PLUS 1p",system-ui;box-sizing:border-box;vertical-align:-5px;margin-right:6px}
+html.th-line .lm-ja{display:block;font:500 13px/18px "M PLUS 1p",system-ui;color:var(--l2);margin-top:1px}
+/* ---------- home ---------- */
+html.th-line .m1h h1{font:800 clamp(30px,4vw,44px)/1.15 "M PLUS 1p",system-ui!important;letter-spacing:-.01em}
+html.th-line .m1h p,html.th-line .m1lead{font-size:16px!important;line-height:1.6!important;color:var(--l2)!important}
+html.th-line .m1cards{gap:16px!important}
+@media(min-width:1200px){html.th-line .m1cards{grid-template-columns:repeat(4,minmax(0,1fr))!important}}
+@media(min-width:700px) and (max-width:1199px){html.th-line .m1cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+html.th-line .m1card{border:1px solid var(--lbd)!important;border-radius:20px!important;box-shadow:none!important;background:var(--ls)!important}
+html.th-line .m1deck>:not(.m1card){display:none!important}
+html.th-line .m1ph{height:150px!important;background:var(--lsub)!important}
+html.th-line .m1ph::after,html.th-line .m1ph::before{display:none!important}
+html.th-line .m1lt{position:absolute;left:12px;top:12px;width:36px;height:36px;border-radius:10px!important;background:var(--link)!important;color:#fff!important;display:grid!important;place-items:center;font:800 18px/1 "M PLUS 1p",system-ui!important;box-shadow:none!important}
+html.th-line .m1bd{padding:16px!important;display:flex;flex-direction:column;gap:10px}
+html.th-line .lm-eye{font:700 13px/16px "M PLUS 1p",system-ui;letter-spacing:.06em;text-transform:uppercase;color:var(--l2)}
+html.th-line .m1bd h3{font:800 22px/1.25 "M PLUS 1p",system-ui!important;margin:0!important;color:var(--link)!important}
+html.th-line .m1bar{display:none!important}
+html.th-line .lm-route{display:grid;grid-template-columns:repeat(14,1fr);gap:2px}
+html.th-line .lm-route i{height:10px;border-radius:2px;background:var(--c)}
+html.th-line .lm-route i:first-child{border-radius:5px 2px 2px 5px}html.th-line .lm-route i:last-child{border-radius:2px 5px 5px 2px}
+html.th-line .m1leg{font:500 14px/1.5 "M PLUS 1p",system-ui!important;color:var(--l2)!important}
+html.th-line .m1ex{display:none!important}
+html.th-line .m1pc{list-style:none;margin:0!important;padding:0!important;display:grid;gap:8px}
+html.th-line .m1pc li{margin:0!important;padding:8px 10px!important;border-radius:12px;font:500 14px/1.45 "M PLUS 1p",system-ui!important;border:0!important}
+html.th-line .m1pc li.p{background:#E3F4EC!important;color:#17724F!important}
+html.th-line .m1pc li.m{background:#FCE8EC!important;color:#B02844!important}
+html.th-line .m1pc li b{color:inherit!important}
+html.th-line .m1pc li:nth-of-type(n+2).p,html.th-line .m1pc li.p~li.p,html.th-line .m1pc li.m~li.m{display:none!important}
+html.th-line .m1btn{display:flex!important;align-items:center;justify-content:center;min-height:48px;border-radius:14px!important;background:var(--link)!important;color:#fff!important;font:700 16px/1 "M PLUS 1p",system-ui!important;border:0!important;box-shadow:none!important;margin-top:auto}
+html.th-line .m1peek{padding:0 16px 16px!important;border:0!important;background:none!important}
+html.th-line .m1peek .m1ticks,html.th-line .m1peek .m1pd,html.th-line .m1more{display:none!important}
+html.th-line .m1figs{display:grid!important;grid-template-columns:repeat(3,1fr);gap:6px}
+html.th-line .m1figs figure:nth-child(n+4){display:none!important}
+html.th-line .m1figs figure{margin:0!important;border-radius:12px!important;overflow:hidden}
+html.th-line .m1figs img{aspect-ratio:1;width:100%;height:auto!important;object-fit:cover;display:block}
+html.th-line .m1figs figcaption{font:500 12px/1.3 "M PLUS 1p",system-ui!important;padding:4px 0 0!important;background:none!important;color:var(--l2)!important;position:static!important}
+html.th-line .m1pick .m1pb,html.th-line #m1cmpt{border-radius:12px!important;min-height:44px}
+/* ---------- theme switcher (shared; only its look is themed) ---------- */
+html.th-line .thsw select{border-color:var(--lbd);border-radius:12px;font-family:"M PLUS 1p",system-ui}
+/* ---------- rail: train-line day list ---------- */
+html.th-line #m3rail{background:none!important}
+html.th-line .m3stay{margin:14px 0 0!important;position:relative}
+html.th-line .m3sh{display:flex;align-items:center;padding:4px 8px 6px!important;font:800 15px/20px "M PLUS 1p",system-ui!important;color:var(--link)!important}
+html.th-line .m3sh small,html.th-line .lm-nts{font-weight:500;color:var(--l2);margin-left:4px}
+html.th-line .m3dr{height:auto!important;min-height:48px!important;padding:6px 8px 6px 34px!important;border-radius:12px!important;font:500 15px/20px "M PLUS 1p",system-ui!important;color:var(--link)!important;background:none!important;flex-wrap:wrap;align-items:center!important}
+html.th-line .m3dr::before{content:"";position:absolute!important;left:14px;top:-2px;bottom:-2px;width:4px;border-radius:0;background:var(--c)!important;display:block!important;opacity:1!important;height:auto!important}
+html.th-line .m3dr::after{content:"";position:absolute;left:9px;top:50%;margin-top:-7px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--c);box-sizing:border-box}
+html.th-line .m3dr.on{background:var(--lsel)!important}
+html.th-line .m3dr.on::after{width:18px;height:18px;left:7px;margin-top:-9px;border-width:5px}
+html.th-line .m3dr b{font-weight:800!important;color:var(--link)!important;flex:0 0 auto!important}
+html.th-line .m3dr>i{display:none!important}
+html.th-line .lm-flag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;background:var(--lsub);color:var(--link);font:700 12px/18px "M PLUS 1p",system-ui}
+html.th-line .lm-flag svg{width:22px;height:10px}
+html.th-line .lm-exp{display:none;position:relative;padding:4px 8px 8px 34px}html.th-line #m3rail .m3stay{position:relative}html.th-line #m3rail .lm-exp{position:absolute;left:0;right:0}html.th-line #m3rail .m3dr,html.th-line #m3rail .m3sh{will-change:transform}
+html.th-line .lm-exp::before{content:"";position:absolute;left:14px;top:0;bottom:0;width:4px;background:var(--c)}
+html.th-line .m3dr.on+.lm-exp{display:block}
+html.th-line .lm-stop{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;padding:4px 6px;border:0;border-radius:10px;background:none;text-align:left;cursor:pointer;font:500 14px/1.35 "M PLUS 1p",system-ui;color:var(--link)}
+html.th-line .lm-stop:hover{background:var(--lsub)}
+html.th-line .lm-sq{flex:0 0 22px;height:22px;border-radius:5px;display:grid;place-items:center;font:800 12px/1 "M PLUS 1p",system-ui;box-sizing:border-box;border:2px solid var(--link);background:var(--link);color:#fff}
+html.th-line .lm-sq.o{background:#fff;color:var(--link)}
+html.th-line .lm-fd{margin:4px 6px 0;font:500 13px/1.45 "M PLUS 1p",system-ui;color:var(--l2)}
+html.th-line .m3sht .lm-exp{display:none!important}
+/* ---------- hero ---------- */
+html.th-line .m3hero{aspect-ratio:auto!important;background:var(--ls)!important;color:var(--link)!important;border:1px solid var(--lbd);border-radius:20px!important}
+html.th-line .m3hero .m3sl{height:320px!important;border-radius:0}
+html.th-line .m3hero .m3sh0,html.th-line .m3hero::after,html.th-line .m3hero::before{display:none!important}
+html.th-line .m3tx{position:static!important;padding:18px 20px 20px!important;pointer-events:auto!important}
+html.th-line .m3tx *{color:var(--link)!important;text-shadow:none!important}
+html.th-line .m3tx>.lm-sc{float:left;margin:-2px 8px 0 0}html.th-line .m3eye{display:block;align-items:center;font:700 13px/18px "M PLUS 1p",system-ui!important;letter-spacing:.04em;color:var(--l2)!important;text-transform:none!important}
+html.th-line .m3tx h1{font:800 clamp(30px,4vw,44px)/1.15 "M PLUS 1p",system-ui!important;margin:6px 0 4px!important}
+html.th-line .m3tx p{font:400 16px/1.6 "M PLUS 1p",system-ui!important;color:var(--l2)!important}
+html.th-line .m3hero .m3ar{top:160px!important}
+html.th-line .m3hero .m3hcnt{top:12px!important;bottom:auto!important}
+html.th-line .m3hero .m3dots{top:290px!important;bottom:auto!important}
+html.th-line .m3dn button,html.th-line .m3cp{border-radius:12px!important;min-height:44px}
+html.th-line .m3story{border-radius:18px!important;border:1px solid var(--lbd)!important;background:var(--ls)!important;font-size:16px!important;line-height:1.6!important}
+/* ---------- plan: time | marker rail | content ---------- */
+html.th-line .m3tl{background:none!important;border:0!important;padding:4px 0!important}
+html.th-line .m3row{grid-template-columns:64px 30px minmax(0,1fr)!important;column-gap:12px!important;padding:8px 0!important;border:0!important;background:none!important;position:relative}
+html.th-line .m3row::before,html.th-line .m3leg::before{content:"";position:absolute;left:88px;top:0;bottom:0;width:3px;background:var(--lbd)}
+html.th-line .m3row>.m3tm{grid-column:1!important;grid-row:1!important;padding-top:4px}
+html.th-line .m3tm b{font:700 15px/20px "M PLUS 1p",system-ui!important}
+html.th-line .m3row>.lm-mk{grid-column:2!important;grid-row:1!important;position:relative;z-index:1;justify-self:center;margin-top:2px}
+html.th-line .m3row>.lm-card,html.th-line .m3row>.m3bd{grid-column:3!important;grid-row:1!important}
+html.th-line .m3row>.m3ic{display:none!important}
+html.th-line .lm-mk{width:28px;height:28px;border-radius:6px;display:grid;place-items:center;font:800 14px/1 "M PLUS 1p",system-ui;box-sizing:border-box;background:var(--link);color:#fff;border:2px solid var(--link)}
+html.th-line .lm-mk.o{background:#fff;color:var(--link)}
+html.th-line .lm-mk.f{background:var(--lft);border-color:var(--lft);color:var(--lfl)}
+html.th-line .lm-mk.h{background:#fff;color:var(--link);border-color:var(--lbd)}
+html.th-line .lm-mk.d{width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--lbd);margin-top:6px}
+html.th-line .lm-mk svg{width:16px;height:16px}
+html.th-line .lm-card{background:var(--ls);border:1px solid var(--lbd);border-radius:18px;overflow:hidden;min-width:0}
+html.th-line .lm-card>.m3th{display:block;width:100%!important;max-height:none!important;aspect-ratio:16/9!important;margin:0!important;border-radius:0!important}
+html.th-line .lm-card>.m3bd{padding:14px 16px 16px;font-size:16px;line-height:1.6}
+html.th-line .m3bd .m3nm,html.th-line .m3bd b{font-weight:700}
+html.th-line .m3sight .m3bd>b,html.th-line .m3sight .m3nm{font-size:18px!important;line-height:1.35!important}
+html.th-line .m3tier{border-radius:999px!important;font:700 12px/20px "M PLUS 1p",system-ui!important;padding:2px 10px!important}
+html.th-line .m3tier.must{background:var(--link)!important;color:#fff!important;border:0!important}
+html.th-line .m3tier.optional{background:#fff!important;color:var(--link)!important;border:1px solid var(--lbd)!important}
+html.th-line .m3kid{background:var(--ltip)!important;border-radius:12px!important;padding:8px 10px!important;font:500 14px/1.5 "M PLUS 1p",system-ui!important;color:var(--link)!important;border:0!important}
+html.th-line .m3kid::before{content:"Family tip  ";font-weight:800}
+/* meals: compact pink card, small square photo */
+html.th-line .m3food .lm-card{background:var(--lft);border-color:var(--lft);display:flex;gap:12px;align-items:center;padding:10px}
+html.th-line .m3food .lm-card>.m3th{order:2;flex:0 0 64px;width:64px!important;height:64px;aspect-ratio:1!important;border-radius:12px!important}
+html.th-line .m3food .lm-card>.m3bd{padding:0;flex:1 1 auto;font-size:15px}
+html.th-line .m3food .lm-card::before{content:"Meal";position:absolute;opacity:0}
+html.th-line .m3food .m3bd>b,html.th-line .m3food .m3nm{color:var(--lfl)!important}
+/* hotels and transit: single lines */
+html.th-line .m3home .m3bd{display:block!important;padding-top:4px;font-size:15px;color:var(--l2)}
+html.th-line .m3home .m3hi{display:none!important}
+html.th-line .m3leg{margin:0!important;padding:6px 0 6px 118px!important;border:0!important;min-height:36px;font:600 14px/20px "M PLUS 1p",system-ui!important;color:var(--l2)!important;position:relative}
+html.th-line .m3leg::before{background:none;border-left:3px dotted var(--l2);width:0}
+html.th-line .m3lg{display:inline-flex!important;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:var(--lsub)}
+html.th-line .m3sub .lm-card{border-radius:14px}
+@media(max-width:699px){
+ html.th-line .m3row{grid-template-columns:48px 26px minmax(0,1fr)!important;column-gap:8px!important}
+ html.th-line .m3row::before,html.th-line .m3leg::before{left:68px}
+ html.th-line .m3leg{padding-left:92px!important}
+ html.th-line .m3tm b{font-size:13px!important}html.th-line .m3tm small{font-size:11px!important}
+ html.th-line .lm-mk{width:24px;height:24px;font-size:12px}
+ html.th-line .m3hero .m3sl{height:230px!important}html.th-line .m3hero .m3ar{top:115px!important}html.th-line .m3hero .m3dots{top:200px!important}
+ html.th-line .m1ph{height:170px!important}
+}
+</style>
+
 </head>
 <body>
 <div class="hdr"><div class="in">
@@ -2812,6 +2945,7 @@ html.mustonly .m3tl .m3row.opt{display:none}
 <div id="pm" hidden><div id="pmbk"></div><div id="pmd" role="dialog" aria-modal="true" aria-labelledby="pmt" tabindex="-1"><div class="grab" aria-hidden="true"><i></i></div><button type="button" id="pmx" aria-label="Close">×</button><div id="pmsc"></div></div><div id="pmtx" role="dialog" aria-modal="true" aria-label="Taxi card: show this to the driver" tabindex="-1" hidden></div></div>
 <script type="application/json" id="dl-json">{}</script>
 <script>
+var __TH_Q = (function(){ try { return new URLSearchParams(location.search).get("theme"); } catch (e) { return null; } })();   /* read before deep-link sync rewrites the URL */
 /* Tiny 3-city fallback, used only when data.js is not inlined. */
 var SAMPLE_TRIP = {
   meta:{title:"Japan Trip Planner",dates:"Days 1–14",travelers:"Family of four"},
@@ -5618,6 +5752,139 @@ document.addEventListener("click", function(e){ var b = e.target.closest && e.ta
     copy(u, function(ok){ var s = b.querySelector("span"); if (ok) { s.textContent = "Link copied"; b.classList.add("ok"); setTimeout(function(){ s.textContent = "Copy link"; b.classList.remove("ok"); }, 1800); } }); });
   sync();
 })();
+/* ===== THEMES — one registry. To retire a theme: set on:false in THEMES.list (it disappears from the switcher; saved/linked choices fall back to THEMES.def). Its CSS (<style id="theme-<id>">) and its THEME_IMPL.<id> block stay in place, inert. ===== */
+var THEMES = { def: "classic", list: [
+  { id: "classic", label: "Classic", on: true },
+  { id: "line",    label: "Line map", on: true }
+] };
+var THEME_IMPL = {};   /* per-theme render hooks: { colors, row(html,o), hero(html,d,j), nav(html), card(html,m,k), home(root) } — Classic has none */
+(function(){
+  var KEY = "jtrip.theme";
+  function ok(id){ return THEMES.list.some(function(t){ return t.on && t.id === id; }) ? id : null; }
+  function q(){ return window.__TH_Q || null; }
+  var urlT = ok(q()), cur = urlT || ok((function(){ try { return localStorage.getItem(KEY); } catch (e) { return null; } })()) || ok(THEMES.def) || THEMES.list.filter(function(t){ return t.on; })[0].id;
+  if (urlT) try { localStorage.setItem(KEY, urlT); } catch (e) {}
+  function impl(){ return THEME_IMPL[cur] || null; }
+  function apply(){ var h = document.documentElement; THEMES.list.forEach(function(t){ h.classList.toggle("th-" + t.id, t.id === cur); }); var I = impl(); if (I && I.font && !document.getElementById("thf-" + cur)) { var l = document.createElement("link"); l.id = "thf-" + cur; l.rel = "stylesheet"; l.href = I.font; document.head.appendChild(l); } }
+  apply();
+  /* hooks: wrap the shared builders once; each defers to the active theme's impl, Classic passes through untouched */
+  function hook(f, name, key){ return function(){ var s = f.apply(this, arguments), I = impl(); if (I && I[key]) try { var a = [s].concat([].slice.call(arguments)); return I[key].apply(null, a); } catch (e) { console.warn("theme", name, e); } return s; }; }
+  var colorOf0 = colorOf;
+  colorOf = function(id){ var I = impl(); return (I && I.colors && I.colors[id]) || colorOf0(id); };
+  m3row = hook(m3row, "m3row", "row"); m3hero = hook(m3hero, "m3hero", "hero"); m1bCard = hook(m1bCard, "m1bCard", "card");
+  var nav0 = m3NavHTML; m3NavHTML = function(mode){ var s = nav0(mode), I = impl(); if (mode !== "strip" && I && I.nav) try { return I.nav(s); } catch (e) { console.warn("theme nav", e); } return s; };
+  /* switcher */
+  function selHTML(){ var on = THEMES.list.filter(function(t){ return t.on; }); if (on.length < 2) return ""; return '<label class="thsw"><span>Theme</span><select aria-label="Theme">' + on.map(function(t){ return '<option value="' + t.id + '"' + (t.id === cur ? " selected" : "") + '>' + esc(t.label) + '</option>'; }).join("") + '</select></label>'; }
+  function mount(){
+    var h1 = document.querySelector("#choose .m1hx"); if (h1 && !h1.querySelector(".thsw")) h1.insertAdjacentHTML("beforeend", selHTML());
+    var h2 = document.querySelector("#m3h .m3tb"); if (h2 && !h2.querySelector(".thsw")) h2.insertAdjacentHTML("beforeend", selHTML());
+    document.querySelectorAll(".thsw select").forEach(function(s){ s.value = cur; });
+  }
+  var rc0 = renderChoose; renderChoose = function(){ rc0.apply(this, arguments); var I = impl(); if (I && I.home) try { I.home($("choose")); } catch (e) { console.warn("theme home", e); } mount(); };
+  var b0 = m3build; m3build = function(){ var r = b0.apply(this, arguments); mount(); return r; };
+  /* URL: keep ?theme in the address bar and in Copy link only while a non-default theme is on */
+  function withT(u){ try { var U = new URL(u, location.href); if (cur !== THEMES.def) U.searchParams.set("theme", cur); else U.searchParams.delete("theme"); return U.pathname + U.search + U.hash; } catch (e) { return u; } }
+  ["replaceState", "pushState"].forEach(function(m){ var f = history[m]; history[m] = function(s, t, u){ return f.call(history, s, t, u == null ? withT(location.href) : withT(u)); }; });
+  if (window.__dlLink) { var dl0 = window.__dlLink; window.__dlLink = function(){ var u = dl0.apply(this, arguments); try { var U = new URL(u); if (cur !== THEMES.def) U.searchParams.set("theme", cur); else U.searchParams.delete("theme"); return U.toString(); } catch (e) { return u; } }; }
+  function set(id){
+    id = ok(id); if (!id || id === cur) return; cur = id; try { localStorage.setItem(KEY, id); } catch (e) {}
+    apply(); try { history.replaceState(history.state, "", location.href); } catch (e) {}
+    if (!document.documentElement.classList.contains("s1")) { try { show(window.__TRIP_DBG ? __TRIP_DBG.cur() : 0); } catch (e) { console.warn("theme rerender", e); } }
+    try { renderChoose(); } catch (e) {}
+    mount();
+  }
+  document.addEventListener("change", function(e){ var s = e.target.closest && e.target.closest(".thsw select"); if (s) set(s.value); });
+  window.__THEME = { get: function(){ return cur; }, set: set, list: THEMES };
+})();
+
+/* ===== THEME_IMPL.line — "Line map". Isolated: delete this block + <style id="theme-line"> to remove the theme entirely. ===== */
+(function(){
+  var CODE = { tokyo: "T", kyoto: "K", osaka: "O", kawaguchiko: "F" };
+  var JA = [[/^Shibuya Sky/, "渋谷スカイ"], [/^Shibuya/, "渋谷"], [/^Harajuku/, "原宿"], [/^Senso-ji/, "浅草寺"], [/^Tokyo Skytree/, "東京スカイツリー"], [/^Akihabara/, "秋葉原"], [/^Toyosu Market/, "豊洲市場"], [/^Ginza$|^Ginza at night/, "銀座"], [/^Tsukiji/, "築地場外市場"], [/^Tokyo Station/, "東京駅"], [/^Ueno Park/, "上野公園"], [/^Ameyoko/, "アメ横"], [/^Nishiki Market/, "錦市場"], [/^Gion/, "祇園"], [/^Fushimi Inari/, "伏見稲荷大社"], [/^Kiyomizu-dera/, "清水寺"], [/^Sannenzaka/, "三年坂"], [/^Arashiyama/, "嵐山"], [/^Kinkaku-ji/, "金閣寺"], [/^Nijo Castle/, "二条城"], [/^Osaka Castle/, "大阪城"], [/^Kuromon/, "黒門市場"], [/^Dotonbori/, "道頓堀"], [/^Kyoto Station/, "京都駅"], [/^Haneda/, "羽田空港"], [/^Narita/, "成田空港"], [/^Chureito/, "忠霊塔"], [/^Lake Kawaguchi/, "河口湖"], [/^Todai-ji/, "東大寺"], [/^Nara Park/, "奈良公園"]];
+  var EMO = /(?:[\u{1F300}-\u{1FAFF}]|[\u2600-\u27BF])\uFE0F?/gu;
+  var TRAIN = '<svg viewBox="0 0 44 20" aria-hidden="true"><path d="M2 14h30c6 0 10-3 10-6s-6-4-14-4H8C4 4 2 7 2 10z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M2 18h40" stroke="currentColor" stroke-width="2"/></svg>';
+  var BOWL = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h12a6 6 0 0 1-12 0zM5 3v4M8 2v5M11 3v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+  function frag(s){ var t = document.createElement("template"); t.innerHTML = s; return t.content; }
+  function out(f){ var d = document.createElement("div"); d.appendChild(f); return d.innerHTML; }
+  function strip(root){ var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), n, a = []; while ((n = w.nextNode())) a.push(n); a.forEach(function(n){ if (EMO.test(n.nodeValue)) { EMO.lastIndex = 0; n.nodeValue = n.nodeValue.replace(EMO, "").replace(/^\s+/, function(m){ return n.previousSibling ? m : ""; }); } EMO.lastIndex = 0; }); }
+  function ja(name){ for (var i = 0; i < JA.length; i++) if (JA[i][0].test(name)) return JA[i][1]; return ""; }
+  function cityOfLabel(s){ s = (s || "").toLowerCase(); for (var k in CODE) if (s.indexOf(k === "kawaguchiko" ? "kawaguchi" : k) >= 0) return k; return ""; }
+  function sc(k){ return k && CODE[k] ? '<span class="lm-sc" style="--c:' + THEME_IMPL.line.colors[k] + '" aria-hidden="true">' + CODE[k] + '</span>' : ""; }
+  THEME_IMPL.line = {
+    font: "https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;500;700;800&display=swap",
+    colors: { tokyo: "#2D6BE4", kyoto: "#8B4FD6", osaka: "#E07A12", kawaguchiko: "#1F9E7A" },
+    row: function(s, o){
+      var f = frag(s), li = f.firstElementChild; if (!li) return s;
+      strip(li);
+      if (li.classList.contains("m3leg")) { if (o && o.mode === "shinkansen") li.querySelector(".m3lg").insertAdjacentHTML("afterbegin", '<span class="lm-tr">' + TRAIN + '</span>'); return out(f); }
+      var tm = li.querySelector(":scope>.m3tm"), th = li.querySelector(":scope>.m3th"), bd = li.querySelector(":scope>.m3bd"), ic = li.querySelector(":scope>.m3ic");
+      if (ic) ic.remove();
+      var mk;
+      if (li.classList.contains("m3home")) mk = '<span class="lm-mk h" aria-hidden="true">H</span>';
+      else if (li.classList.contains("m3food")) mk = '<span class="lm-mk f" aria-hidden="true">' + BOWL + '</span>';
+      else if (o && o.k === "sight" && o.n && o.n !== "·" && !o.same && !o.again) { mk = '<span class="lm-mk' + (o.row && o.row.tier === "optional" ? " o" : "") + '" aria-hidden="true">' + o.n + '</span>'; li.setAttribute("data-stop", o.n); }
+      else mk = '<span class="lm-mk d" aria-hidden="true"></span>';
+      var num = bd && bd.querySelector(".m3num"); if (num) num.remove();
+      if (tm) tm.insertAdjacentHTML("afterend", mk); else li.insertAdjacentHTML("afterbegin", mk);
+      if (bd && !li.classList.contains("m3home")) { var c = document.createElement("div"); c.className = "lm-card"; bd.parentNode.insertBefore(c, th || bd); if (th) c.appendChild(th); c.appendChild(bd); }
+      if (o && o.k === "sight" && !o.same && bd) { var nm = bd.querySelector(".m3nm"), j = nm && ja(nm.textContent); if (j) nm.closest("b").insertAdjacentHTML("afterend", '<span class="lm-ja" lang="ja">' + j + '</span>'); }
+      return out(f);
+    },
+    hero: function(s, d){
+      var f = frag(s), e = f.querySelector(".m3eye"); strip(f);
+      if (e && d) e.insertAdjacentHTML("beforebegin", sc(d.cityId));   /* sibling, so the eyebrow text stays "Day N of 14 · City" */
+      return out(f);
+    },
+    nav: function(s){
+      var f = frag(s), nd = days.length;
+      f.querySelectorAll(".m3stay").forEach(function(st){ var sh = st.querySelector(".m3sh"); if (sh) sh.insertAdjacentHTML("afterbegin", sc(cityOfLabel(sh.textContent))); });
+      f.querySelectorAll(".m3dr").forEach(function(b){
+        var j = +b.dataset.j, i = b.querySelector(":scope>i"), ic = i ? i.textContent : "", fl = "";
+        if (/\u2708/.test(ic)) fl = j === 0 ? "Fly in" : j === nd - 1 ? "Fly out" : "Flight";
+        else if (/\u{1F684}|\u{1F685}/u.test(ic)) fl = '<span>Shinkansen</span>' + TRAIN;
+        if (i) i.remove(); strip(b);
+        if (fl) (b.querySelector(".m3rw") || b).insertAdjacentHTML("beforeend", '<span class="lm-flag">' + fl + '</span>');
+        var pl; try { pl = m3plan(days[j], j); } catch (x) { return; }
+        var stops = pl.items.filter(function(o){ return o.k === "sight" && o.n && o.n !== "·" && !o.same && !o.again && !o.sub; });
+        var food = pl.items.filter(function(o){ return o.k === "food" && !o.same && place[o.pid]; }).map(function(o){ return place[o.pid].name; });
+        var h = stops.map(function(o){ var P = place[o.pid], opt = o.row && o.row.tier === "optional"; return '<button type="button" class="lm-stop" data-lj="' + j + '" data-ln="' + o.n + '"><span class="lm-sq' + (opt ? " o" : "") + '">' + o.n + '</span><span>' + esc(P ? P.name : (o.text || "")) + '</span></button>'; }).join("");
+        if (food.length) h += '<p class="lm-fd">Eat: ' + food.slice(0, 3).map(esc).join(" · ") + '</p>';
+        b.insertAdjacentHTML("afterend", '<div class="lm-exp" style="--c:' + getC(b) + '">' + h + '</div>');
+      });
+      return out(f);
+    },
+    card: function(s){
+      var f = frag(s), h3 = f.querySelector(".m1bd h3"), tk = f.querySelector(".m1ticks");
+      strip(f);
+      if (h3) { var m = h3.textContent.match(/^(Trip [A-Z])\s*·\s*(.*)$/); if (m) { h3.textContent = m[2]; h3.insertAdjacentHTML("beforebegin", '<span class="lm-eye">' + m[1] + ' · 14 days</span>'); } if (tk) { var r = document.createElement("div"); r.className = "lm-route"; r.setAttribute("aria-hidden", "true"); r.innerHTML = tk.innerHTML; h3.insertAdjacentElement("afterend", r); } }
+      return out(f);
+    },
+    home: function(root){ /* nothing structural: compare stays collapsed as in Classic */ }
+  };
+  /* rail expansion follows scroll without CLS: the open list is absolutely placed under the selected day and everything below moves by transform, not by reflow */
+  function railFit(){
+    if (!document.documentElement.classList.contains("th-line")) return;
+    var r = document.getElementById("m3rail"); if (!r) return;
+    var all = r.querySelectorAll(".m3dr, .m3sh"), on = r.querySelector(".m3dr.on"), ex = on && on.nextElementSibling && on.nextElementSibling.classList.contains("lm-exp") ? on.nextElementSibling : null, h = 0, past = false;
+    if (ex) { ex.style.top = (on.offsetTop + on.offsetHeight) + "px"; h = ex.offsetHeight; }
+    for (var i = 0; i < all.length; i++) { var el = all[i]; el.style.transform = past && h ? "translateY(" + h + "px)" : ""; if (el === on) past = true; }
+    r.style.paddingBottom = h ? (h + 12) + "px" : "";
+  }
+  var mo = new MutationObserver(function(){ railFit(); });
+  function watch(){ var r = document.getElementById("m3rail"); if (r && !r.__lmw) { r.__lmw = 1; mo.observe(r, { subtree: true, childList: true, attributes: true, attributeFilter: ["class"] }); railFit(); } }
+  document.addEventListener("DOMContentLoaded", watch); setTimeout(watch, 0); setInterval(watch, 1000);
+  window.addEventListener("resize", railFit);
+  function getC(b){ var st = b.closest(".m3stay"); return st ? st.style.getPropertyValue("--c") : ""; }
+  /* stop rows in the rail jump to that numbered stop in the plan */
+  document.addEventListener("click", function(e){
+    var b = e.target.closest && e.target.closest(".lm-stop"); if (!b) return;
+    e.preventDefault(); e.stopPropagation();
+    var j = +b.dataset.lj, n = b.dataset.ln, c = window.__TRIP_DBG ? __TRIP_DBG.cur() : j;
+    function go(){ var li = document.querySelector('#day-content .m3grid li[data-stop="' + n + '"]'); if (!li) return; var hd = document.getElementById("m3h"), off = (hd ? hd.offsetHeight : 0) + 12; window.scrollTo({ top: li.getBoundingClientRect().top + scrollY - off, behavior: "auto" }); }
+    if (j !== c) { m3go(j); requestAnimationFrame(function(){ requestAnimationFrame(go); }); } else go();
+  }, true);
+})();
+
 /* ===== iter6 JS END */
 document.body.appendChild($("bstamp"));
 $("badge").hidden = !usingSample;
